@@ -1,17 +1,22 @@
 <main class="album-view container narrow">
   <section class="clearfix">
     <div class="column half">
-      <img class="album-cover-art" src="assets/images/album_covers/01.png">
+      <img class="album-cover-art" src="/{{album.albumArtUrl}}">
     </div>
     <div class="album-view-details column half">
-      <h2 class="album-view-title">The Colors</h2>
-      <h3 class="album-view-artist">Pablo Picasso</h3>
-      <h5 class="album-view-release-info">1909 Spanish Records</h5>
+      <h2 class="album-view-title">{{album.title}}</h2>
+      <h3 class="album-view-artist">{{album.artist}}</h3>
+      <h5 class="album-view-release-info">{{album.year}} {{album.label}}</h5>
     </div>
   </section>
-  <table class="album-view-song-list"></table>
+<table class="album-view-song-list">
+  <tr class="album-view-song-item" ng-repeat="song in album.songs">
+    <td class="song-item-number" data-song-number="songNumber">songNumber</td>
+    <td class="song-item-title">{{song.name}}</td>
+    <td class="song-item-duration">{{song.length}}</td>
+  </tr>
+</table>
 </main>
-
 <section class="player-bar">
   <div class="container">
     <div class="control-group main-controls">

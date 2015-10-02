@@ -1,6 +1,6 @@
-var myAppModule = angular.module('blocJams', ['ui.router']);
+angular.module('blocJams', ['ui.router']);
 
-myAppModule.config(function($stateProvider, $locationProvider) {
+angular.module('blocJams').config(function($stateProvider, $locationProvider) {
 
   $locationProvider.html5Mode({
     enabled: true,
@@ -9,19 +9,19 @@ myAppModule.config(function($stateProvider, $locationProvider) {
 
   $stateProvider.state('landing', {
     url: '/landing',
-    // controller: 'Album.controller',
+    controller: 'Landing.controller',
     templateUrl: '/templates/landing.html'
   });
 
   $stateProvider.state('album', {
     url: '/album',
-    // controller: 'Album.controller',
+    controller: 'Album.controller',
     templateUrl: 'templates/album.html'
   });
 
   $stateProvider.state('collection', {
     url: '/collection',
-    // controller: 'Album.controller',
+    controller: 'Collection.controller',
     templateUrl: 'templates/collection.html'
   });
 });
