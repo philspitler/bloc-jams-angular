@@ -50,6 +50,7 @@ body.album {
 .song-item-number {
     width: 5%;
     min-width: 30px;
+    text-align: center;
 }
 
 .song-item-title {
@@ -89,9 +90,9 @@ body.album {
     .album-view-details {
         text-align: center;
     }
-    
+
     .album-view-title {
-        margin-top: 0;   
+        margin-top: 0;
     }
 }
 

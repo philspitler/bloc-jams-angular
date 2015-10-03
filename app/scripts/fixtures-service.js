@@ -6,11 +6,11 @@ angular.module('blocJams').factory('Fixtures', function () {
       year: '1881',
       albumArtUrl: 'assets/images/album_covers/01.png',
       songs: [
-          { name: 'Blue', length: '161.71', audioUrl: 'assets/music/blue' },
-          { name: 'Green', length: '103.96', audioUrl: 'assets/music/green' },
-          { name: 'Red', length: '268.45', audioUrl: 'assets/music/red' },
-          { name: 'Pink', length: '153.14', audioUrl: 'assets/music/pink' },
-          { name: 'Magenta', length: '374.22', audioUrl: 'assets/music/magenta' }
+          { name: 'Blue', length: '161.71', audioUrl: 'assets/music/blue', playing: false },
+          { name: 'Green', length: '103.96', audioUrl: 'assets/music/green', playing: false },
+          { name: 'Red', length: '268.45', audioUrl: 'assets/music/red', playing: false },
+          { name: 'Pink', length: '153.14', audioUrl: 'assets/music/pink', playing: false },
+          { name: 'Magenta', length: '374.22', audioUrl: 'assets/music/magenta', playing: false }
       ]
   };
 

@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/styles/landing.css">
   <link rel="stylesheet" type="text/css" href="/styles/collection.css">
   <link rel="stylesheet" type="text/css" href="/styles/album.css">
+  <link rel="stylesheet" type="text/css" href="/styles/player_bar.css">
 </head>
 
 <body class="landing">
@@ -26,15 +27,18 @@
       <a ui-sref="collection" class="navbar-link">Collection</a>
     </div>
   </nav>
+
   <div ui-view></div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>
   <script src="/scripts/app.js"></script>
   <script src="/scripts/fixtures-service.js"></script>
   <script src="/scripts/landing-controller.js"></script>
   <script src="/scripts/album-controller.js"></script>
   <script src="/scripts/collection-controller.js"></script>
+  <script src="/scripts/song-player-service.js"></script>
 </body>
 
 </html>
