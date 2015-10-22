@@ -1,6 +1,8 @@
 angular.module('blocJams').factory('SongPlayer', function($window) {
   var currentSong = {
     stop: function() {},
+    setPercent: function() {},
+    setVolume: function () {},
     appData: {}
   };
 
@@ -16,6 +18,8 @@ angular.module('blocJams').factory('SongPlayer', function($window) {
       preload: true
     });
 
+    song.duration = $window.buzz.toTimer(currentSong.getDuration());
+
     currentSong.appData = song;
 
     currentSong.play();
@@ -27,12 +31,37 @@ angular.module('blocJams').factory('SongPlayer', function($window) {
 
   return {
     playOrPause: function(song) {
-      
-      isCurrentSongLoaded(song) ? toggle() : play(song);
+      var toggled = isCurrentSongLoaded(song) ? toggle() : play(song);
       return song;
     },
-    setTime: currentSong.setTime,
-    toggleMute: currentSong.toggleMute,
-    setVolume: currentSong.setVolume
+    getVolume: function () {
+      return currentSong.getVolume();
+    },
+    setVolume: function(volume) {
+      currentSong.setVolume(volume);
+    },
+    onVolumeChange: function(callback) {
+      currentSong.bind('volumechange', function(e) {
+        callback(this.getVolume());
+      });
+    },
+    setPercent: function(percent) {
+      currentSong.setPercent(percent);
+    },
+    timeUpdate: function(callback) {
+      currentSong.bind('timeupdate', function(e) {
+        var timer = $window.buzz.toTimer(this.getTime());
+        callback({
+          time: timer,
+          percent: this.getPercent()
+        });
+      });
+    },
+    getDuration: function(callback) {
+      currentSong.bind('loadedmetadata', function(e) {
+        var duration = $window.buzz.toTimer(currentSong.getDuration());
+        callback(duration);
+      });
+    }
   };
 });
