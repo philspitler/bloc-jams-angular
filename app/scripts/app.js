@@ -1,6 +1,8 @@
 angular.module('blocJams', ['ui.router']);
 
-angular.module('blocJams').config(function($stateProvider, $locationProvider) {
+angular.module('blocJams').config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('/landing');
 
   $locationProvider.html5Mode({
     enabled: true,

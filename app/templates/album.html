@@ -24,6 +24,7 @@
 <section class="player-bar">
   <div class="container">
     <div class="control-group main-controls">
+
       <a class="previous">
         <span class="ion-skip-backward"></span>
       </a>
@@ -40,20 +41,14 @@
       <h2 class="artist-song-mobile"></h2>
       <h3 class="artist-name"></h3>
       <div class="seek-control">
-        <div class="seek-bar">
-          <div class="fill"></div>
-          <div class="thumb"></div>
-        </div>
-        <div class="current-time"></div>
-        <div class="total-time"></div>
+        <slider action="seek"></slider>
+        <div class="current-time">{{timeData.time}}</div>
+        <div class="total-time">{{duration}}</div>
       </div>
     </div>
     <div class="control-group volume">
       <span class="icon ion-volume-high"></span>
-      <div class="seek-bar">
-        <div class="fill"></div>
-        <div class="thumb"></div>
-      </div>
+      <slider action="volume"></slider>
     </div>
   </div>
 </section>
