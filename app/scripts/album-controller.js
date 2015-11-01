@@ -54,6 +54,7 @@
 
     $scope.playOrPause = function(song) {
       resetSongs(song);
+      $scope.songPlayer = SongPlayer;
       song.playing = !song.playing;
       $scope.currentSong = SongPlayer.playOrPause(song);
       $scope.setVolumeControls(SongPlayer.getVolume());

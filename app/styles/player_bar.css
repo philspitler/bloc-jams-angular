@@ -131,7 +131,11 @@
                 margin-left 100ms ease-in-out;
 }
 
-.seek-bar:hover .thumb {
+.seek-bar:active .fill, .seek-bar:active .thumb {
+  transition: none;
+}
+
+.seek-bar:hover .thumb, .seek-bar:active .thumb {
     width: 1.1rem;
     height: 1.1rem;
     margin-top: -0.5rem;

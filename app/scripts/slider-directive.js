@@ -1,64 +1,98 @@
 angular.module('blocJams').directive('slider', function($document, SongPlayer) {
+  // Returns a number between 0 and 1 to determine where the mouse event happened along the slider bar.
+  var calculateSliderPercentFromMouseEvent = function($slider, event) {
+    var offsetX = event.pageX - $slider.offset().left; // Distance from left
+    var sliderWidth = $slider.width(); // Width of slider
+    var offsetXPercent = (offsetX / sliderWidth);
+    offsetXPercent = Math.max(0, offsetXPercent);
+    offsetXPercent = Math.min(1, offsetXPercent);
+    return offsetXPercent;
+  };
+
+  var numberFromValue = function(value, defaultValue) {
+    if (typeof value === 'number') {
+      return value;
+    }
+
+    if (typeof value === 'undefined') {
+      return defaultValue;
+    }
+
+    if (typeof value === 'string') {
+      return Number(value);
+    }
+  };
   return {
     restrict: 'E',
-    scope: {},
-    template: '<div class="seek-bar"><div class="fill"></div><div class="thumb"></div></div>',
-    link: function(scope, element, attrs) {
-      var updateSeekPercentage = function(seekBar, seekBarFillRatio) {
-        var offsetXPercent = seekBarFillRatio * 100;
-        offsetXPercent = Math.max(0, offsetXPercent);
-        offsetXPercent = Math.min(100, offsetXPercent);
+    replace: true,
+    scope: {
+      onChange: '&'
+    },
+    templateUrl: '/templates/slider.html',
+    link: function(scope, element, attributes) {
 
-        var percentageString = offsetXPercent + '%';
-        seekBar.find('.fill').width(percentageString);
-        seekBar.find('.thumb').css({
-          left: percentageString
-        });
+
+      // These values represent the progress into the song/volume bar, and its max value.
+      // For now, we're supplying arbitrary initial and max values.
+      scope.value = 0;
+      scope.max = 100;
+      var $seekBar = $(element);
+
+      var percentString = function() {
+        var value = scope.value || 0;
+        var max = scope.max || 100;
+        percent = value / max * 100;
+        return percent + "%";
       };
 
-      scope.seek = function(amount) {
-        SongPlayer.setPercent(amount);
+      scope.fillStyle = function() {
+        return {
+          width: percentString()
+        };
       };
 
-      scope.volume = function(amount) {
-        SongPlayer.setVolume(amount);
+      scope.thumbStyle = function() {
+        return {
+          left: percentString()
+        };
       };
 
-      scope.timeUpdate = function() {
-        SongPlayer.timeUpdate(function(timeData) {
-          updateSeekPercentage(this, timeData.percent);
-        });
+      scope.onClickSlider = function(event) {
+        var percent = calculateSliderPercentFromMouseEvent($seekBar, event);
+        scope.value = percent * scope.max;
+        notifyCallback(scope.value);
       };
 
-      //CLICKING THE SEEKBAR
-      element.find('.seek-bar').click(function(event) {
-        var offsetX = event.pageX - angular.element(this).offset().left;
-        var barWidth = angular.element(this).width();
-        var seekBarFillRatio = offsetX / barWidth;
-        updateSeekPercentage(angular.element(this), seekBarFillRatio);
-      });
-
-      //DRAGGING THE 'THUMB'
-      element.find('.thumb').mousedown(function(event) {
-        var seekBar = angular.element(this).parent();
-
+      scope.trackThumb = function() {
         $document.bind('mousemove.thumb', function(event) {
-          var offsetX = event.pageX - seekBar.offset().left;
-          var barWidth = seekBar.width();
-          var seekBarFillRatio = offsetX / barWidth;
-          scope[attrs.action](parseInt(seekBarFillRatio * 100));
-          // if (seekBar.parent().attr('class') == 'seek-control') {
-          //   seek(seekBarFillRatio * currentSoundFile.getDuration());
-          // } else {
-          //   setVolume(seekBarFillRatio);
-          // }
-          updateSeekPercentage(seekBar, seekBarFillRatio);
+          var percent = calculateSliderPercentFromMouseEvent($seekBar, event);
+          scope.$apply(function() {
+            scope.value = percent * scope.max;
+            notifyCallback(scope.value);
+          });
         });
+
+        //cleanup
         $document.bind('mouseup.thumb', function() {
           $document.unbind('mousemove.thumb');
           $document.unbind('mouseup.thumb');
         });
+      };
+
+      attributes.$observe('value', function(newValue) {
+        scope.value = numberFromValue(newValue, 0);
       });
+
+      attributes.$observe('max', function(newValue) {
+        scope.max = numberFromValue(newValue, 100) || 100;
+      });
+      var notifyCallback = function(newValue) {
+        if (typeof scope.onChange === 'function') {
+          scope.onChange({
+            value: newValue
+          });
+        }
+      };
     }
   };
 });

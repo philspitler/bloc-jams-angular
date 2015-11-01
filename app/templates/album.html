@@ -41,14 +41,14 @@
       <h2 class="artist-song-mobile"></h2>
       <h3 class="artist-name"></h3>
       <div class="seek-control">
-        <slider action="seek"></slider>
+        <slider value='{{timeData.percent}}' max='{{songPlayer.currentSong.length}}' on-change='songPlayer.setPercent(value)'></slider>
         <div class="current-time">{{timeData.time}}</div>
         <div class="total-time">{{duration}}</div>
       </div>
     </div>
     <div class="control-group volume">
       <span class="icon ion-volume-high"></span>
-      <slider action="volume"></slider>
+      <slider></slider>
     </div>
   </div>
 </section>
