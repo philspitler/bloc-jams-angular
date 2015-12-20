@@ -26,14 +26,14 @@
     <div class="control-group main-controls">
 
       <a class="previous">
-        <span class="ion-skip-backward"></span>
+        <span class="ion-skip-backward" ng-click="playPreviousSong(currentSong)"></span>
       </a>
       <a class="play-pause">
         <span class="ion-play" ng-hide="currentSong.playing" ng-click="playOrPause(currentSong)"></span>
         <span class="ion-pause" ng-show="currentSong.playing" ng-click="playOrPause(currentSong)"></span>
       </a>
       <a class="next">
-        <span class="ion-skip-forward"></span>
+        <span class="ion-skip-forward" ng-click="playNextSong(currentSong)"></span>
       </a>
     </div>
     <div class="control-group currently-playing">

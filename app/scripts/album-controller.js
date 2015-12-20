@@ -66,5 +66,19 @@
         $scope.duration = duration;
       });
     };
+
+    $scope.playPreviousSong = function(song) {
+      var prevSongIndex = $scope.album.songs.indexOf(song) - 1;
+      var lastSongIndex = $scope.album.songs.length - 1;
+
+      $scope.playOrPause((prevSongIndex === -1) ? $scope.album.songs[lastSongIndex] : $scope.album.songs[prevSongIndex]);
+		};
+
+		$scope.playNextSong = function(song) {
+      var nextSongIndex = $scope.album.songs.indexOf(song) + 1;
+      var lastSongIndex = $scope.album.songs.length - 1;
+
+      $scope.playOrPause((nextSongIndex === lastSongIndex + 1) ? $scope.album.songs[0] : $scope.album.songs[nextSongIndex]);
+		};
   });
 }());
