@@ -38,24 +38,6 @@
       $scope.setVolumeControls(volume);
     };
 
-    var isPressed = false;
-    $scope.thumbMove = function(event) {
-      if (isPressed) {
-        console.log('move');
-        console.log(event);
-      }
-    };
-    $scope.thumbDown = function(event) {
-      isPressed = true;
-
-    };
-
-    $scope.thumbUp = function(event) {
-      isPressed = false;
-
-      console.log(isPressed);
-    };
-
     $scope.playOrPause = function(song) {
       resetSongs(song);
       $scope.songPlayer = SongPlayer;
