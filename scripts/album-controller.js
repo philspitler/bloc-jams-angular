@@ -1,8 +1,8 @@
 (function() {
   'use strict';
   angular.module('blocJams').controller('Album.controller', function($scope, Fixtures, SongPlayer) {
-    var resetSongs = function (song) {
-      $scope.album.songs.forEach(function (item) {
+    var resetSongs = function(song) {
+      $scope.album.songs.forEach(function(item) {
         if (item !== song) {
           item.playing = false;
         }
@@ -21,8 +21,12 @@
 
     $scope.setVolumeControls = function(volume) {
       // var volumePercentNumber = Math.round((event.offsetX / document.getElementById('volume-bar').clientWidth) * 100);
-      $scope.volumeFillStyles = {width: volume + '%'};
-      $scope.volumeThumbStyles = {left: volume + '%'};
+      $scope.volumeFillStyles = {
+        width: volume + '%'
+      };
+      $scope.volumeThumbStyles = {
+        left: volume + '%'
+      };
     };
 
     $scope.setVolume = function(volume) {
@@ -37,9 +41,9 @@
     var isPressed = false;
     $scope.thumbMove = function(event) {
       if (isPressed) {
-      console.log('move');
-      console.log(event);
-    }
+        console.log('move');
+        console.log(event);
+      }
     };
     $scope.thumbDown = function(event) {
       isPressed = true;
@@ -72,13 +76,13 @@
       var lastSongIndex = $scope.album.songs.length - 1;
 
       $scope.playOrPause((prevSongIndex === -1) ? $scope.album.songs[lastSongIndex] : $scope.album.songs[prevSongIndex]);
-		};
+    };
 
-		$scope.playNextSong = function(song) {
+    $scope.playNextSong = function(song) {
       var nextSongIndex = $scope.album.songs.indexOf(song) + 1;
       var lastSongIndex = $scope.album.songs.length - 1;
 
       $scope.playOrPause((nextSongIndex === lastSongIndex + 1) ? $scope.album.songs[0] : $scope.album.songs[nextSongIndex]);
-		};
+    };
   });
 }());
