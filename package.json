@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/spa-host/index.js index.html assets scripts styles templates"
+    "start": "node ./node_modules/spa-host/index.js index.html assets scripts styles templates"
   },
   "author": "Bloc Inc",
   "license": "ISC",
